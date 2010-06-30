@@ -21,6 +21,7 @@ class Event < ActiveRecord::Base
   
   belongs_to :event_series
   belongs_to :advisor
+  belongs_to :student
   
   REPEATS = [
               "Does not repeat",

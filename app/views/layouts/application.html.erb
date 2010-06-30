@@ -11,9 +11,21 @@
   </head>
   <body class="subpage">
     <div class="wrapper">
+      <div id="user_nav" float="right">
+      <% if current_advisor %>  
+        <p><%= link_to 'Logout', advisor_session_path(current_advisor_session), :method => :delete %></p>  
+       <% else %>  
+         <p><%= link_to 'Advisor Login', new_advisor_session_path %></p>  
+       <% end %> 
+       <% if current_student %>  
+        <p><%= link_to 'Logout', student_session_path(current_student_session), :method => :delete %></p>  
+       <% else %>  
+         <p><%= link_to 'Studet Login', new_student_session_path %></p>  
+       <% end %> 
+      </div>
       <div class="subPageContent">
         <% if flash[:notice] -%>
-        <div id = 'flash_notice'>
+        <div id = 'flash_noWrong login/passwordtice'>
           <%= flash[:notice] %>
         </div>
         <% end -%>

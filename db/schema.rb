@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100629233600) do
+ActiveRecord::Schema.define(:version => 20100630223136) do
 
   create_table "advisors", :force => true do |t|
     t.string   "login"
@@ -41,9 +41,22 @@ ActiveRecord::Schema.define(:version => 20100629233600) do
     t.text     "description"
     t.integer  "event_series_id"
     t.integer  "advisor_id"
+    t.integer  "student_id"
   end
 
   add_index "events", ["advisor_id"], :name => "index_events_on_advisor_id"
   add_index "events", ["event_series_id"], :name => "index_events_on_event_series_id"
+  add_index "events", ["student_id"], :name => "index_events_on_student_id"
+
+  create_table "students", :force => true do |t|
+    t.string   "email"
+    t.string   "name"
+    t.integer  "advisor_id"
+    t.string   "crypted_password",  :null => false
+    t.string   "password_salt",     :null => false
+    t.string   "persistence_token", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

@@ -14,7 +14,7 @@ class AdvisorSessionsController < ApplicationController
   end
 
   def destroy
-    current_admin_session.destroy
+    current_advisor_session.destroy
     flash[:notice] = "Logout successful!"
     redirect_to root_url
   end
