@@ -1,6 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resource :advisor_session
   map.resource :student_session
+  map.resources :students
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

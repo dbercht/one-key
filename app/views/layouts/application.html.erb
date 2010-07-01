@@ -12,6 +12,7 @@
   <body class="subpage">
     <div class="wrapper">
       <div id="user_nav" float="right">
+      <%= return_id %>
       <% if current_advisor %>  
         <p><%= link_to 'Logout', advisor_session_path(current_advisor_session), :method => :delete %></p>  
        <% else %>  

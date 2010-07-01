@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
 
   filter_parameter_logging :password, :password_confirmation
-  helper_method :current_advisor_session, :current_advisor, :current_student_session, :current_student
+  helper_method :current_advisor_session, :current_advisor, :current_student_session, :current_student, :return_id
 
   private
   def current_advisor_session
@@ -30,6 +30,15 @@ class ApplicationController < ActionController::Base
   def current_student
     return @current_student if defined?(@current_student)
     @current_student = current_student_session && current_student_session.student
+  end
+
+  def return_id
+    return @fetch_id if defined?(@fetch_id)
+      if(current_student)
+        @fetch_id = current_student.advisor_id
+      elsif (current_advisor)
+        @fetch_id = current_advisor.id
+      end
   end
 
 end
