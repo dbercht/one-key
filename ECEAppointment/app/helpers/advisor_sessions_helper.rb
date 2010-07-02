@@ -1,0 +1,2 @@
+module AdvisorSessionsHelper
+end
