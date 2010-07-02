@@ -1,31 +1,19 @@
-    <% form_for(@student) do |form| %>  
-      <p>  
-        <%= form.label :email %><br/>  
-        <%= form.text_field :email %>  
-      </p>  
-      
-      <p>  
-        <%= form.label :name %><br/>  
-        <%= form.text_field :name %>  
-     </p>  
-     
-     <p>  
-        <% advisor_array = Advisor.all.map { |city| [city.login, city.id] } %> 
-        <%= form.label "Advisor" %><br/>  
-        <%= collection_select(:student, :advisor_id, Advisor.all, :id, :login)  %> 
-     </p>
-     
-     <p>  
-        <%= form.label :password %><br/>  
-        <%= form.password_field :password %>  
-     </p>    
-     
-     <p>  
-        <%= form.label :password_confirmation %><br/>  
-        <%= form.password_field :password_confirmation %>  
-     </p>  
+<% title @student.name %>  
 
-    
-     
-     <%= form.submit %>  
-   <% end %>  
+<h1>
+<% if(@student.name) %>
+   <%= @student.name %> </h1>
+<%else%>
+  <h1><%= @student.email %></h1>
+<%end%>
+</h1>
+<h2>Current advisor: <%= @student.advisor.login %></h2>
+<h2>Current advisor's e-mail: <%= @student.advisor.name %></h2>
+
+
+<% if @student.event %>
+  <p> You have and appointment at <%= @student.event.starttime %> </p>
+<%end%>
+
+<%= link_to 'Edit information or delete account', edit_student_path(@student) %>
+

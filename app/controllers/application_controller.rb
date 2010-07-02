@@ -9,9 +9,28 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
 
   filter_parameter_logging :password, :password_confirmation
-  helper_method :current_advisor_session, :current_advisor, :current_student_session, :current_student, :return_id
+  helper_method :student_has_appointment, :advisor_id, :student_id, :require_login, :current_advisor_session, :current_advisor, :current_student_session, :current_student, :return_id
 
   private
+  def require_login
+    return(current_student || current_advisor)
+  end
+
+  def student_has_appointment
+    return(current_student.event != nil)
+  end
+
+  def student_id
+    return(@id)if defined?(current_student)
+    @id = current_student.id
+    
+  end
+
+  def advisor_id
+    return(@id)if defined?(current_advisor)
+    @id = current_advisor.id
+  end
+  
   def current_advisor_session
     return @current_advisor_session if defined?(@current_advisor_session)
     @current_advisor_session = AdvisorSession.find
@@ -40,5 +59,10 @@ class ApplicationController < ActionController::Base
         @fetch_id = current_advisor.id
       end
   end
+
+  def allowed
+    return(current_advisor)
+  end
+
 
 end

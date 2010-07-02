@@ -1,7 +1,8 @@
 class EventsController < ApplicationController
-  
+  before_filter :require_login
+
   def new
-    @event = Event.new(:period => "Does not repeat")
+    @event = Event.new(:period => "Does not repeat")  
   end
   
   def create
@@ -20,7 +21,16 @@ class EventsController < ApplicationController
   end
   
   def index
-    
+    if(current_student)
+      render "index_students"
+    elsif(!current_advisor)
+      flash[:notice] = "Must be logged in to see this page"
+      redirect_to :controller => "students", :action => "new"
+    end
+  end
+
+  def index_students
+
   end
   
   
@@ -33,9 +43,7 @@ class EventsController < ApplicationController
       events << {:id => event.id, :title => event.title, :description => event.description || "Some cool description here...", :start => "#{event.starttime.iso8601}", :end => "#{event.endtime.iso8601}", :allDay => event.all_day, :recurring => (event.event_series_id)? true: false}
     end
     render :text => events.to_json
-  end
-  
-  
+  end    
   
   def move
     @event = Event.find_by_id params[:id]
