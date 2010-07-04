@@ -1,9 +1,5 @@
 <%remote_form_for @event, :url => {:action => :create}, :before => "$('#creating_events').show();", :complete => "$('#creating_events').hide();" do |f| %>
-<p>
-  <%=f.label :title %>
-  <br/>
-  <%=f.text_field :title %>
-</p>
+
 <p>
   <%=f.label :description %>
   <br/>
@@ -15,10 +11,6 @@
   <%=f.datetime_select :starttime, :minute_step => 15 %>
 </p>
 
-<p>
-  <%=f.label :all_day %>
-  <%=f.check_box :all_day %>
-</p>
 <p>
   <%=f.label :period, "Repeats" %>
   <%=f.select :period, Event::REPEATS,{}, :onchange => "showPeriodAndFrequency(this.value);" %>

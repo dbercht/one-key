@@ -2,8 +2,13 @@
 <br>
 <p>
 
+<div id="create_event_hide">
+  <% if !current_student.event %>
   <%=link_to_remote 'Create Event', :url => {:action => :new}, :before => "$('#loading').show()", :complete => "$('#loading').hide()" %>
+  <% else %>
+  <% end %>
 
+</div>
 <script>
   
   
@@ -52,7 +57,7 @@
           
           eventClick: function(event, jsEvent, view){
               showEventDetails(event);
-          },students/4/edit
+          }
       
       
       

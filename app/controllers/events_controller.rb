@@ -10,14 +10,17 @@ class EventsController < ApplicationController
       @event = Event.new(params[:event])
       if(current_advisor)
         @event.advisor_id = current_advisor.id
+        @event.title = current_advisor.name
       elsif(current_student)
         @event.advisor_id = current_student.advisor_id
         @event.student_id = current_student.id
+        @event.title = current_student.name
       end
     else
       #      @event_series = EventSeries.new(:frequency => params[:event][:frequency], :period => params[:event][:repeats], :starttime => params[:event][:starttime], :endtime => params[:event][:endtime], :all_day => params[:event][:all_day])
       @event_series = EventSeries.new(params[:event])
     end
+
   end
   
   def index
@@ -36,22 +39,30 @@ class EventsController < ApplicationController
   
   def get_events
 
-   @events = Event.find(:all, :conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and endtime <= '#{Time.at(params['end'].to_i).to_formatted_s(:db)}'"] )
-   @events.delete_if {|x| x.advisor_id != return_id }
-    events = [] 
+    @events = Event.find(:all, :conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and endtime <= '#{Time.at(params['end'].to_i).to_formatted_s(:db)}'"] )
+    @events.delete_if {|x| x.advisor_id != return_id }
+    events = []
     @events.each do |event|
-      events << {:id => event.id, :title => event.title, :description => event.description || "Some cool description here...", :start => "#{event.starttime.iso8601}", :end => "#{event.endtime.iso8601}", :allDay => event.all_day, :recurring => (event.event_series_id)? true: false}
+      events << {:id => event.id, :title => event.title, :description => event.description || "Some cool description here...", :start => "#{event.starttime.iso8601}", :end => "#{event.endtime.iso8601}", :allDay => event.all_day, :recurring =>  false}
     end
     render :text => events.to_json
   end    
   
   def move
     @event = Event.find_by_id params[:id]
+    if(current_student) 
+      if(@event.student_id == current_student.id)
     if @event
       @event.starttime = (params[:minute_delta].to_i).minutes.from_now((params[:day_delta].to_i).days.from_now(@event.starttime))
       @event.endtime = (params[:minute_delta].to_i).minutes.from_now((params[:day_delta].to_i).days.from_now(@event.endtime))
       @event.all_day = params[:all_day]
       @event.save
+end
+end
+    end
+    render :update do |page|
+      page<<"$('#calendar').fullCalendar( 'refetchEvents' )"
+      page<<"$('#desc_dialog').dialog('destroy')" 
     end
   end
   

@@ -7,7 +7,7 @@
      <p>  
         <% advisor_array = Advisor.all.map { |city| [city.login, city.id] } %> 
         <%= form.label "Change advisor" %><br/>  
-        <%= collection_select(:student, :advisor_id, Advisor.all, :id, :login)  %> 
+        <%= collection_select(:student, :advisor_id, Advisor.all, :id, :name)  %> 
      </p>
      
      <p>  
