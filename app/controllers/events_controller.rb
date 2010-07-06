@@ -52,14 +52,27 @@ class EventsController < ApplicationController
     @event = Event.find_by_id params[:id]
     if(current_student) 
       if(@event.student_id == current_student.id)
-    if @event
-      @event.starttime = (params[:minute_delta].to_i).minutes.from_now((params[:day_delta].to_i).days.from_now(@event.starttime))
-      @event.endtime = (params[:minute_delta].to_i).minutes.from_now((params[:day_delta].to_i).days.from_now(@event.endtime))
-      @event.all_day = params[:all_day]
-      @event.save
-end
-end
+        if @event
+          @event.starttime = (params[:minute_delta].to_i).minutes.from_now((params[:day_delta].to_i).days.from_now(@event.starttime))
+          @event.endtime = (params[:minute_delta].to_i).minutes.from_now((params[:day_delta].to_i).days.from_now(@event.endtime))
+          @event.all_day = params[:all_day]
+          @event.save
+        end
+      end
     end
+
+    if(current_advisor) 
+      if(@event.advisor_id == current_advisor.id)
+        if @event
+          @event.starttime = (params[:minute_delta].to_i).minutes.from_now((params[:day_delta].to_i).days.from_now(@event.starttime))
+          @event.endtime = (params[:minute_delta].to_i).minutes.from_now((params[:day_delta].to_i).days.from_now(@event.endtime))
+          @event.all_day = params[:all_day]
+          @event.save
+        end
+      end
+    end
+    
+    
     render :update do |page|
       page<<"$('#calendar').fullCalendar( 'refetchEvents' )"
       page<<"$('#desc_dialog').dialog('destroy')" 
@@ -107,13 +120,18 @@ end
       @events = @event.event_series.events.find(:all, :conditions => ["starttime > '#{@event.starttime.to_formatted_s(:db)}' "])
       @event.event_series.events.delete(@events)
     else
-      @event.destroy
+      if(@event.student_id == current_student.id)
+        @event.destroy 
+        redirect_to student_path(@student)
+      elsif(@event.advisor_id == current_advisor.id)
+        @event.destroy
+        render :update do |page|
+          page<<"$('#calendar').fullCalendar( 'refetchEvents' )"
+          page<<"$('#desc_dialog').dialog('destroy')" 
+        end
+      end
     end
-    
-    render :update do |page|
-      page<<"$('#calendar').fullCalendar( 'refetchEvents' )"
-      page<<"$('#desc_dialog').dialog('destroy')" 
-    end
+
     
   end
   

@@ -10,10 +10,15 @@
 <h2>Current advisor: <%= @student.advisor.login %></h2>
 <h2>Current advisor's e-mail: <%= @student.advisor.name %></h2>
 
-
+<div id="show_del_event">
 <% if @student.event %>
-  <p> You have and appointment at <%= @student.event.starttime %> </p>
+  <p> You have and appointment at <%= @student.event.starttime %> | 
+  <%= link_to "Delete this event?", :controller => "events", :action => "destroy", :id => @student.event.id  %> </p>
+<% else %>
+<%= "No appointments, want to"%>
+<%= link_to "make an one?", :controller => :events, :action => :index_students %>
 <%end%>
-
+<br />
+<br />
 <%= link_to 'Edit information or delete account', edit_student_path(@student) %>
 
