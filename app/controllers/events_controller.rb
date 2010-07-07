@@ -20,7 +20,6 @@ class EventsController < ApplicationController
       #      @event_series = EventSeries.new(:frequency => params[:event][:frequency], :period => params[:event][:repeats], :starttime => params[:event][:starttime], :endtime => params[:event][:endtime], :all_day => params[:event][:all_day])
       @event_series = EventSeries.new(params[:event])
     end
-
   end
   
   def index
@@ -131,8 +130,9 @@ class EventsController < ApplicationController
         end
       end
     end
-
     
   end
+
+
   
 end

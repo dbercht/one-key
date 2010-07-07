@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
 
   filter_parameter_logging :password, :password_confirmation
-  helper_method :student_has_appointment, :advisor_id, :student_id, :require_login, :current_advisor_session, :current_advisor, :current_student_session, :current_student, :return_id, :allowed
+  helper_method :online, :student_has_appointment, :advisor_id, :student_id, :require_login, :current_advisor_session, :current_advisor, :current_student_session, :current_student, :return_id, :allowed
 
   private
 
@@ -69,5 +69,7 @@ class ApplicationController < ActionController::Base
         @fetch_id = current_advisor.id
       end
   end
-
+  def online
+     return(current_student || current_advisor)
+  end
 end

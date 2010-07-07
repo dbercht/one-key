@@ -1,15 +1,8 @@
-<% title "UMass Appointments for advising" %>
-<br>
-<p>
 
-
-<div id="create_event_hide">
-  <% if !current_student.event %>
-  <%=link_to_remote 'Create Event', :url => {:action => :new}, :before => "$('#loading').show()", :complete => "$('#loading').hide()", :success => "$('#create_event_hide').hide()" %>
-  <% else %>
-  <% end %>
-
+<div id="student_info">
+  <%= render :partial => "show" %>
 </div>
+
 <script>
   
   
