@@ -1,11 +1,11 @@
 if @event
   @event.endtime = @event.starttime + 15.minutes
-  if @event.save
-    page<<"$('#calendar').fullCalendar( 'refetchEvents' )"
-    page<<"$('#create_event_dialog').dialog('destroy')"
-  else
-    page.alert @event.errors.full_messages(',').join("\n")
-  end
+    if (@event.save)
+      page<<"$('#calendar').fullCalendar( 'refetchEvents' )"
+      page<<"$('#create_event_dialog').dialog('destroy')"
+    else
+      page.alert @event.errors.full_messages(',').join("\n")
+    end
 end
 
 if @event_series

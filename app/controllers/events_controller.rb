@@ -112,27 +112,11 @@ class EventsController < ApplicationController
   end  
   
   def destroy
-    @event = Event.find_by_id(params[:id])
-    if params[:delete_all] == 'true'
-      @event.event_series.destroy
-    elsif params[:delete_all] == 'future'
-      @events = @event.event_series.events.find(:all, :conditions => ["starttime > '#{@event.starttime.to_formatted_s(:db)}' "])
-      @event.event_series.events.delete(@events)
-    else
-      if(@event.student_id == current_student.id)
-        @event.destroy 
-        redirect_to student_path(@student)
-      elsif(@event.advisor_id == current_advisor.id)
-        @event.destroy
-        render :update do |page|
-          page<<"$('#calendar').fullCalendar( 'refetchEvents' )"
-          page<<"$('#desc_dialog').dialog('destroy')" 
-        end
-      end
-    end
+    @event = Event.find(params[:id])
+    @event.destroy
+    
+    redirect_to :action => "index"
     
   end
-
-
   
 end
