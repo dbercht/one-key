@@ -11,26 +11,35 @@
   </head>
   <body class="subpage">
     <div id="container">
-      <div class="user_nav" float="right">
-      <% if current_advisor %>  
-        <p><%= link_to 'Logout', advisor_session_path(current_advisor_session), :method => :delete %></p>  
-       <% else %>  
-         <p><%= link_to 'Advisor Login', new_advisor_session_path %></p>  
-       <% end %> 
-       <% if current_student %>  
-        <p><%= link_to 'Logout', student_session_path(current_student_session), :method => :delete %> | <%= link_to "Show Profile" , student_path(current_student)%></p>  
-       <% else %>  
-         <p><%= link_to 'Student Login', new_student_session_path %></p>  
-       <% end %> 
+      
+      <div id="user_nav"> 
+        <div class="right">
+         <%if !online%>
+          <p><%= link_to 'Advisor Login', new_advisor_session_path %> |
+          <%= link_to 'Student Login', new_student_session_path %></p> 
+         <% elsif current_student %>  
+           <p><%= link_to "Show Profile" , student_path(current_student)%> | <%= link_to 'Logout', student_session_path(current_student_session), :method => :delete %> </p>  
+         <% elsif current_advisor %>  
+           <p><%= link_to 'Logout', advisor_session_path(current_advisor_session), :method => :delete %></p>  
+         <% end %> 
+
+
+        </div>
+
+        <div class="left"> 
+            <%= link_to "View Calendar", :controller => 'events' %>  
+        </div>
+      <br />
       </div>
+
       <div class="subPageContent">
         <% if flash[:notice] -%>
-        <div id = 'flash_noWrong login/passwordtice'>
+        <div id ="flash_noWrong">
           <%= flash[:notice] %>
         </div>
         <% end -%>
         <% if flash[:error] -%>
-        <div id = 'flash_error'>
+        <div id = "flash_error">
           <%= flash[:error] %>
         </div>
         <%end -%>
