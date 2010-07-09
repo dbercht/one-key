@@ -10,5 +10,12 @@
 <br />
 <%= link_to 'Edit information or delete account', edit_student_path(@student) %>
 <br />
-<%=link_to_remote 'Create/Delete Appointment', :url => {:action => :view_app}, :before => "$('#loading').show()", :complete => "$('#loading').hide()" %>
 
+<div id="event_info">
+  <% if !current_student.event %>
+    <%=link_to_remote 'Create Event', :url => {:action => :new}, :before => "$('#loading').show()", :complete => "$('#loading').hide()", :success => "$('#create_event_hide').hide()" %>
+  <% else %>
+    <p> You have an appointment at <%= @student.event.starttime %> | 
+    <%=link_to_remote 'Delete Event', :url => {:action => :destroy, :id => @student.event.id}, :before => "$('#loading').show()", :complete => "$('#loading').hide()" %>
+  <% end %>
+</div>

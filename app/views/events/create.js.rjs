@@ -1,8 +1,19 @@
 if @event
   @event.endtime = @event.starttime + 15.minutes
+     if(current_advisor)
+        @event.advisor_id = online.id
+        @event.title = online.name
+        @event.description =  "#{online.name}'s appointment."
+      elsif(current_student)
+        @event.advisor_id = online.advisor_id
+        @event.student_id = online.id
+        @event.title = online.name
+        @event.description =  "#{online.name}'s appointment with #{online.advisor.name}"
+      end
     if (@event.save)
       page<<"$('#calendar').fullCalendar( 'refetchEvents' )"
-      page<<"$('#create_event_dialog').dialog('destroy')"
+      page<<"$('#create_event_dialog').dialog('destroy')" 
+      page.replace_html 'student_info', :partial => 'show'
     else
       page.alert @event.errors.full_messages(',').join("\n")
     end

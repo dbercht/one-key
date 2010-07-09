@@ -1,7 +1,6 @@
+<% title "UMass Appointments for advising" %>
+<br>
 
-<div id="student_info">
-  <%= render :partial => "show" %>
-</div>
 
 <script>
   
@@ -24,13 +23,12 @@
           firstHour: 8,
           loading: function(bool){
               if (bool) 
-                  $('#loading').show();periodically_call_remote(:url => 'update', :frequency => '5', :update => 'ticker')
-
+                  $('#loading').show();
               else 
                   $('#loading').hide();
           },
           events: "/events/get_events",
-          timeFormat: 'h:mm t{ - h:create_eventmm t} ',
+          timeFormat: 'h:mm t{ - h:mm t} ',
           dragOpacity: "0.5",
           eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc){
 //              if (confirm("Are you sure about this change?")) {
@@ -60,6 +58,9 @@
       });
   });
 </script>
+<div id="student_info">
+  <%= render :partial => "show" %>
+</div>
 <div>
   <div id='calendar'>
   </div>
@@ -70,10 +71,13 @@
   <br/>
   <br/>
   <div id = "event_actions">
+    <span id = "edit_event"></span>
+    <span id = "delete_event"></span>
   </div>
 </div>
 <div id = "create_event_dialog" style ="display:none;">
   <div id = "create_event">
   </div>
 </div>
+
 

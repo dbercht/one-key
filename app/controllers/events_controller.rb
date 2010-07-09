@@ -50,15 +50,17 @@ class EventsController < ApplicationController
   
   def move
     @event = Event.find_by_id params[:id]
+    
     if(current_student) 
       if(@event.student_id == current_student.id)
-        if @event
+        if (@event)
           @event.starttime = (params[:minute_delta].to_i).minutes.from_now((params[:day_delta].to_i).days.from_now(@event.starttime))
           @event.endtime = (params[:minute_delta].to_i).minutes.from_now((params[:day_delta].to_i).days.from_now(@event.endtime))
           @event.all_day = params[:all_day]
           @event.save
         end
-      end
+      end    
+      
     end
 
     if(current_advisor) 
@@ -72,10 +74,12 @@ class EventsController < ApplicationController
       end
     end
     
-    
     render :update do |page|
       page<<"$('#calendar').fullCalendar( 'refetchEvents' )"
       page<<"$('#desc_dialog').dialog('destroy')" 
+      if(current_student)
+        page.replace_html 'student_info', :partial => 'show'
+      end
     end
   end
   
@@ -114,10 +118,7 @@ class EventsController < ApplicationController
   
   def destroy
     @event = Event.find(params[:id])
-    @event.destroy
-    
-    redirect_to :action => "index"
-    
+    @event.destroy 
   end
   
 end
