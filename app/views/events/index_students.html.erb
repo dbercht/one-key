@@ -24,12 +24,13 @@
           firstHour: 8,
           loading: function(bool){
               if (bool) 
-                  $('#loading').show();
+                  $('#loading').show();periodically_call_remote(:url => 'update', :frequency => '5', :update => 'ticker')
+
               else 
                   $('#loading').hide();
           },
           events: "/events/get_events",
-          timeFormat: 'h:mm t{ - h:mm t} ',
+          timeFormat: 'h:mm t{ - h:create_eventmm t} ',
           dragOpacity: "0.5",
           eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc){
 //              if (confirm("Are you sure about this change?")) {
@@ -75,3 +76,4 @@
   <div id = "create_event">
   </div>
 </div>
+

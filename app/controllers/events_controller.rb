@@ -2,26 +2,27 @@ class EventsController < ApplicationController
   before_filter :require_login
 
   def new
-    @event = Event.new(:period => "Does not repeat")  
+    @event = Event.new(:period => "Does not repeat")
+    @event.title = online.name
+    if(current_student) 
+      @event.advisor_id = current_student.advisor_id
+      @event.student_id = current_student.id 
+      @event.description = "#{@current_student.name}'s appointment with #{@current_student.advisor.name}."
+    else
+      @event.description = "#{@current_advisor}'s appointment"
+      @event.advisor_id = current_advisor.id
+    end
   end
   
   def create
     if params[:event][:period] == "Does not repeat"
       @event = Event.new(params[:event])
-      if(current_advisor)
-        @event.advisor_id = current_advisor.id
-        @event.title = current_advisor.name
-      elsif(current_student)
-        @event.advisor_id = current_student.advisor_id
-        @event.student_id = current_student.id
-        @event.title = current_student.name
-      end
     else
       #      @event_series = EventSeries.new(:frequency => params[:event][:frequency], :period => params[:event][:repeats], :starttime => params[:event][:starttime], :endtime => params[:event][:endtime], :all_day => params[:event][:all_day])
       @event_series = EventSeries.new(params[:event])
     end
   end
-  
+
   def index
     if(current_student)
       render "index_students"
