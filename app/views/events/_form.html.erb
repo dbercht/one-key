@@ -1,19 +1,19 @@
 <%remote_form_for @event, :url => {:action => :create}, :before => "$('#creating_events').show();", :complete => "$('#creating_events').hide();" do |f| %>
 
 <p>
+
   <%=f.label :description %>
   <br/>
-  <%=f.text_area :description, :rows => 4, :cols => 30 %>
+  <%f.text_area :description %>
 </p>
 <p>
   <%=f.label :starttime, 'Start Time' %>
   <br/>
   <%=f.datetime_select :starttime, :minute_step => 15 %>
-</p>
+</p
 
 <p>
-  <%=f.label :period, "Repeats" %>
-  <%=f.select :period, Event::REPEATS,{}, :onchange => "showPeriodAndFrequency(this.value);" %>
+  <%= f.hidden_field :period, :value => "Does not repeat"%>
 </p>
 <p id = "frequency" style = "display:none;">
   <%=f.label :frequency, "Repeat every" %>

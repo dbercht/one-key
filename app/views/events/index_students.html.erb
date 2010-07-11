@@ -1,7 +1,6 @@
+<% title "UMass Appointments for advising" %>
+<br>
 
-<div id="student_info">
-  <%= render :partial => "show" %>
-</div>
 
 <script>
   
@@ -19,7 +18,7 @@
           defaultView: 'agendaWeek',
           defaultEventMinutes: 15,
           allDaySlot: false,
-          height: 500,
+          height: 810,
           slotMinutes: 15,
           firstHour: 8,
           loading: function(bool){
@@ -59,6 +58,9 @@
       });
   });
 </script>
+<div id="student_info">
+  <%= render :partial => "show" %>
+</div>
 <div>
   <div id='calendar'>
   </div>
@@ -69,9 +71,13 @@
   <br/>
   <br/>
   <div id = "event_actions">
+    <span id = "edit_event"></span>
+    <span id = "delete_event"></span>
   </div>
 </div>
 <div id = "create_event_dialog" style ="display:none;">
   <div id = "create_event">
   </div>
 </div>
+
+

@@ -2,26 +2,27 @@ class EventsController < ApplicationController
   before_filter :require_login
 
   def new
-    @event = Event.new(:period => "Does not repeat")  
+    @event = Event.new(:period => "Does not repeat")
+    @event.title = online.name
+    if(current_student) 
+      @event.advisor_id = current_student.advisor_id
+      @event.student_id = current_student.id 
+      @event.description = "#{@current_student.name}'s appointment with #{@current_student.advisor.name}."
+    else
+      @event.description = "#{@current_advisor}'s appointment"
+      @event.advisor_id = current_advisor.id
+    end
   end
   
   def create
     if params[:event][:period] == "Does not repeat"
       @event = Event.new(params[:event])
-      if(current_advisor)
-        @event.advisor_id = current_advisor.id
-        @event.title = current_advisor.name
-      elsif(current_student)
-        @event.advisor_id = current_student.advisor_id
-        @event.student_id = current_student.id
-        @event.title = current_student.name
-      end
     else
       #      @event_series = EventSeries.new(:frequency => params[:event][:frequency], :period => params[:event][:repeats], :starttime => params[:event][:starttime], :endtime => params[:event][:endtime], :all_day => params[:event][:all_day])
       @event_series = EventSeries.new(params[:event])
     end
   end
-  
+
   def index
     if(current_student)
       render "index_students"
@@ -49,15 +50,17 @@ class EventsController < ApplicationController
   
   def move
     @event = Event.find_by_id params[:id]
+    
     if(current_student) 
       if(@event.student_id == current_student.id)
-        if @event
+        if (@event)
           @event.starttime = (params[:minute_delta].to_i).minutes.from_now((params[:day_delta].to_i).days.from_now(@event.starttime))
           @event.endtime = (params[:minute_delta].to_i).minutes.from_now((params[:day_delta].to_i).days.from_now(@event.endtime))
           @event.all_day = params[:all_day]
           @event.save
         end
-      end
+      end    
+      
     end
 
     if(current_advisor) 
@@ -71,10 +74,12 @@ class EventsController < ApplicationController
       end
     end
     
-    
     render :update do |page|
       page<<"$('#calendar').fullCalendar( 'refetchEvents' )"
       page<<"$('#desc_dialog').dialog('destroy')" 
+      if(current_student)
+        page.replace_html 'student_info', :partial => 'show'
+      end
     end
   end
   
@@ -113,9 +118,13 @@ class EventsController < ApplicationController
   
   def destroy
     @event = Event.find(params[:id])
+<<<<<<< HEAD
     @event.destroy
     redirect_to :action => "index"
     
+=======
+    @event.destroy 
+>>>>>>> 27636e45d4a8786513e2bbe58e094eabba687804
   end
   
 end

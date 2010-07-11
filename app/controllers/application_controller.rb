@@ -73,6 +73,24 @@ class ApplicationController < ActionController::Base
   def online
      return(current_student || current_advisor)
   end
-  
 
+  def event_collision
+    time = @event.starttime
+    id = @event.id
+    @collision = false;
+    logger.info "Processing the request... #{id}, starttime #{time}" 
+    @events = Event.find(:all)
+    @events.delete_if {|x| (x.advisor_id != return_id)}
+    @events.delete_if {|x| (x.id == id)}
+    @events.each do |@event|
+    logger.info "Processing the request... #{time.eql?(@event.starttime)}"
+      if ((@event.starttime.eql?(time)))
+        logger.info "Processing COLLISION FOUND, #{@event.title}, #{@event.starttime}"
+        @collision = true
+      end
+    end
+    logger.info "Returned #{@collision}"
+    return @collision
+  end
+      
 end

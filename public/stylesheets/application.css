@@ -37,7 +37,15 @@ body {
   display: inline;
 }
 
-#errorExplanation {
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
+#errorExplanation, #flash_error, #flash_noWrong {
   width: 400px;
   border: 2px solid #CF0000;
   padding: 0px;
@@ -46,7 +54,7 @@ body {
   background-color: #f0f0f0;
 }
 
-#errorExplanation h2 {
+#errorExplanation, #flash_error, #flash_noWrong h2 {
   text-align: left;
   font-weight: bold;
   padding: 5px 5px 5px 15px;
@@ -56,17 +64,17 @@ body {
   color: #fff;
 }
 
-#errorExplanation p {
+#errorExplanation, #flash_error, #flash_noWrong p {
   color: #333;
   margin-bottom: 0;
   padding: 8px;
 }
 
-#errorExplanation ul {
+#errorExplanation, #flash_error, #flash_noWrong ul {
   margin: 2px 24px;
 }
 
-#errorExplanation ul li {
+#errorExplanation, #flash_error, #flash_noWrong ul li {
   font-size: 12px;
   list-style: disc;
 }
