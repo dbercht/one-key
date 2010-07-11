@@ -1,9 +1,9 @@
 <% @student = current_student %>
-
 <% title "#{@student.advisor.name}'s Appointments" %>  
+<div id="small" id="loud">
 
 <h1><%= @student.name %> </h1>
-
+</div>
 <h2>Current advisor: <%= @student.advisor.login %></h2>
 <h2>Current advisor's e-mail: <%= @student.advisor.name %></h2>
 
