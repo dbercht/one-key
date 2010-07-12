@@ -1,5 +1,6 @@
 body{
   font-size: 12px;
+  background: #EFF:
   font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 }
 
@@ -35,9 +36,10 @@ html { font-size:100.01%; }
 body {
   font-size: 75%;
   color: #222;
-  background-color: #4B7399;
+  background-image: url('/images/bground.png');
+  background-repeat:repeat-x;
+  background-color: #FFF;
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-  background: url('../public/images/bground.gif');
 }
 
 
