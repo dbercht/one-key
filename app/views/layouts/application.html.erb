@@ -12,16 +12,19 @@
   </head>
   <body>
     <div id="container">
-      <div class="right">
-        <%if online %>
-          <% if current_advisor %>  
-        <p><%= link_to 'Logout', advisor_session_path(current_advisor_session), :method => :delete %></p>  
-          <% elsif current_student %>  
-        <p><%= link_to 'Logout', student_session_path(current_student_session), :method => :delete %> | <%= link_to "Show Profile" , student_path(current_student)%></p>  
-          <% end %>
-       <% else %>  
-         <p><%= link_to 'Student Login', new_student_session_path %> | <%= link_to 'Advisor Login', new_advisor_session_path %></p>
-      <% end %>
+
+      <div id="header" class="right">
+        <div class="right">
+          <%if online %>
+            <% if current_advisor %>  
+          <p><%= link_to 'Logout', advisor_session_path(current_advisor_session), :method => :delete %></p>  
+            <% elsif current_student %>  
+          <p><%= link_to 'Logout', student_session_path(current_student_session), :method => :delete %></p>  
+            <% end %>
+         <% else %>  
+           <p><%= link_to 'Student Login', new_student_session_path %> | <%= link_to 'Advisor Login', new_advisor_session_path %></p>
+        <% end %>
+        </div>
       </div>
       <div class="subPageContent">
         <% if flash[:notice] -%>
@@ -41,7 +44,12 @@
           </div>
         </div>
       </div>
+    <div id="footer">
+        b
     </div>
+		
+    </div>  
+
     <script type="text/javascript">
       var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
       document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));

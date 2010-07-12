@@ -15,9 +15,9 @@
           defaultView: 'agendaWeek',
           defaultEventMinutes: 15,
           allDaySlot: false,
-          height: 810,
+          height: 600,
           slotMinutes: 15,
-          firstHour: 8,
+          firstHour: 9,
           loading: function(bool){
               if (bool) 
                   $('#loading').show();
@@ -55,7 +55,7 @@
       });
   });
 </script>
-<div id="student_info">
+<div id="student_info" class="info">
   <%= render :partial => "show" %>
 </div>
 <div>
