@@ -1,16 +1,9 @@
 body {
-  background-color: #4B7399;
+  background: url('/public/images/bground.gif');
   font-family: Verdana, Helvetica, Arial;
   font-size: 14px;
 }
 
-a img {
-  border: none;
-}
-
-a {
-  color: #0000FF;
-}
 
 .clear {
   clear: both;

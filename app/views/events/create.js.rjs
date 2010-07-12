@@ -13,8 +13,8 @@ if @event
     if (@event.save)
       page<<"$('#calendar').fullCalendar( 'refetchEvents' )"
       page<<"$('#create_event_dialog').dialog('destroy')" 
-      page.replace_html 'student_info', :partial => 'show'
     else
+      page.replace_html 'student_info', :partial => 'show'
       page.alert @event.errors.full_messages(',').join("\n")
     end
 end
@@ -27,3 +27,4 @@ if @event_series
     page.alert @event_series.errors.full_messages(',').join("\n")
   end
 end
+
