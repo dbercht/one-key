@@ -35,7 +35,7 @@ var defaults = {
 		center: '',
 		right: 'today prev,next'
 	},
-	weekends: true,
+	weekends: false,
 	
 	// editing
 	//editable: false,

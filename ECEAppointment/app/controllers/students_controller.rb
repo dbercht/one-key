@@ -20,6 +20,7 @@ class StudentsController < ApplicationController
      redirect_to root_url
    else  
      flash[:error] = @student.errors.full_messages
+
      render :new  
    end
  end  

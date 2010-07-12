@@ -1,22 +1,13 @@
 <% title "UMass Appointments for advising" %>
-<br>
-<p>
 
-<div id="create_div">
-  if(current_student.event)
-    <%=link_to_remote 'Create Event', :update => "event_div" ,:url => {:action => :new}, :before => "$('#loading').show()", :complete => "$('#loading').hide()" %>
-  else
-    <%=link_to_remote 'Delete Event', :update => "event_div", :url =>{:action => :destroy, :id => current_student.event.id}, :before => "$('#loading').show()", :complete => "$('#loading').hide()" %>
-</div>
+
 <script>
-  
-  
   $(document).ready(function(){
       // page is now ready, initialize the calendar...
       $('#calendar').fullCalendar({
           editable: true,
           header: {
-              left: 'prev,nextstudents/4/edit today',
+              left: 'prev,next today',
               center: 'title',
               right: 'month,agendaWeek,agendaDay'
           },
@@ -24,7 +15,7 @@
           defaultView: 'agendaWeek',
           defaultEventMinutes: 15,
           allDaySlot: false,
-          height: 500,
+          height: 810,
           slotMinutes: 15,
           firstHour: 8,
           loading: function(bool){
@@ -34,13 +25,13 @@
                   $('#loading').hide();
           },
           events: "/events/get_events",
-          timeFormat: 'h:mm t{ - students/4/edith:mm t} ',
+          timeFormat: 'h:mm t{ - h:mm t} ',
           dragOpacity: "0.5",
           eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc){
 //              if (confirm("Are you sure about this change?")) {
                   moveEvent(event, dayDelta, minuteDelta, allDay);
 //              }
-//              else {students/4/edit
+//              else {
 //                  revertFunc();
 //              }
           },
@@ -56,7 +47,7 @@
           
           eventClick: function(event, jsEvent, view){
               showEventDetails(event);
-          },students/4/edit
+          },
       
       
       
@@ -64,21 +55,25 @@
       });
   });
 </script>
+<div id="student_info">
+  <%= render :partial => "show" %>
+</div>
 <div>
   <div id='calendar'>
   </div>
 </div>
 <div id = "desc_dialog" style ="display:none;">
-  <div id = "event_desc">students/4/edit
+  <div id = "event_desc">
   </div>
   <br/>
   <br/>
   <div id = "event_actions">
-    <span id = "edit_event"></span>
-    <span id = "delete_event"></span>
   </div>
 </div>
 <div id = "create_event_dialog" style ="display:none;">
   <div id = "create_event">
   </div>
 </div>
+
+
+

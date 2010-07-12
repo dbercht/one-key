@@ -1,14 +1,11 @@
-<% title @student.name %>  
+<% @student = current_student %>
+
+<% title "#{@student.advisor.name}'s Appointments" %>  
 
 <h1><%= @student.name %> </h1>
-<h1><%= @student.email %></h1>
+
 <h2>Current advisor: <%= @student.advisor.name %></h2>
-<h2>Current advisor's e-mail: <%= @student.advisor.name %></h2>
+<h2>Current advisor's e-mail: <%= @student.advisor.email %></h2>
 
-
-<% if @student.event %>
-  <p> You have and appointment at <%= @student.event.starttime %> </p>
-<%end%>
-
-<%= link_to 'Edit information or delete account', edit_student_path(@student) %>
+<br />
 

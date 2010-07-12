@@ -21,7 +21,7 @@ development:
   database: ECEAppointment_development
   pool: 5
   username: root
-  password: leinad
+  password:
   socket: /var/run/mysqld/mysqld.sock
 
 # Warning: The database defined as "test" will be erased and
@@ -34,7 +34,7 @@ test:
   database: ECEAppointment_test
   pool: 5
   username: root
-  password: leinad
+  password:
   socket: /var/run/mysqld/mysqld.sock
 
 production:
@@ -44,5 +44,5 @@ production:
   database: ECEAppointment_production
   pool: 5
   username: root
-  password: leinad
+  password: 
   socket: /var/run/mysqld/mysqld.sock
