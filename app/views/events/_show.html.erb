@@ -1,0 +1,19 @@
+<% @student = current_student %>
+<% title "#{@student.advisor.name}'s Appointments" %>  
+<h1><div ><%= @student.name %></div> </h1>s
+<h2>Current advisor: <%= @student.advisor.name %></h2>
+<h2>Current advisor's e-mail: <%= @student.advisor.email %></h2>
+
+<br />
+<%= link_to 'Edit information or delete account', edit_student_path(@student) %>
+<br />
+
+<div id="event_info">
+  <% if !current_student.event %>
+    <%=link_to_remote 'Create Event', :url => {:action => :new}, :before => "$('#loading').show()", :complete => "$('#loading').hide()", :success => "$('#create_event_hide').hide()" %>
+  <% else %>
+    <p> You have an appointment at <%= @student.event.starttime %> | 
+    <%=link_to_remote 'Delete Event', :url => {:action => :destroy, :id => @student.event.id}, :before => "$('#loading').show()", :complete => "$('#loading').hide()" %>
+  <% end %>
+</div>
+
