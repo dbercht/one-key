@@ -118,7 +118,13 @@ class EventsController < ApplicationController
   
   def destroy
     @event = Event.find(params[:id])
+<<<<<<< HEAD
+    @event.destroy
+    redirect_to :action => "index"
+    
+=======
     @event.destroy 
+>>>>>>> 27636e45d4a8786513e2bbe58e094eabba687804
   end
   
 end

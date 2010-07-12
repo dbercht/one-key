@@ -36,9 +36,13 @@ html { font-size:100.01%; }
 body {
   font-size: 75%;
   color: #222;
+<<<<<<< HEAD
   background-image: url('/images/bground.png');
   background-repeat:repeat-x;
   background-color: #FFF;
+=======
+  background: #fff;
+>>>>>>> fdca61902b0dbd9c68ece4039cb926b6561cc6ea
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
@@ -116,8 +120,12 @@ caption { background: #eee; }
 
 /* Misc classes
 -------------------------------------------------------------- */
+<<<<<<< HEAD
 //.right  { float: right}
 .left  { float: left}
+=======
+
+>>>>>>> fdca61902b0dbd9c68ece4039cb926b6561cc6ea
 .small { font-size: .8em; margin-bottom: 1.875em; line-height: 1.875em; }
 .large { font-size: 1.2em; line-height: 2.5em; margin-bottom: 1.25em; }
 .hide { display: none; }
