@@ -19,10 +19,6 @@ span > div#loading {
   position: fixed;
 }
 
-h1{
-font-size: 16px;
-}
-
 /* --------------------------------------------------------------
 
 typography.css
@@ -116,12 +112,8 @@ caption { background: #eee; }
 
 /* Misc classes
 -------------------------------------------------------------- */
-<<<<<<< HEAD
-//.right  { float: right}
+.right  { float: right}
 .left  { float: left}
-=======
-
->>>>>>> fdca61902b0dbd9c68ece4039cb926b6561cc6ea
 .small { font-size: .8em; margin-bottom: 1.875em; line-height: 1.875em; }
 .large { font-size: 1.2em; line-height: 2.5em; margin-bottom: 1.25em; }
 .hide { display: none; }

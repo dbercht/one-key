@@ -29,7 +29,7 @@ var defaults = {
 
 	// display
 	defaultView: 'month',
-	aspectRatio: 1.35,
+	aspectRatio: .5,
 	header: {
 		left: 'title',
 		center: '',
@@ -1559,7 +1559,7 @@ function _renderDaySegs(segs, rowCnt, view, minLeft, maxLeft, getRow, dayContent
 setDefaults({
 	allDaySlot: true,
 	allDayText: 'all-day',
-	firstHour: 6,
+	firstHour: 9,
 	slotMinutes: 30,
 	defaultEventMinutes: 120,
 	axisFormat: 'h(:mm)tt',
@@ -1569,8 +1569,8 @@ setDefaults({
 	dragOpacity: {
 		agenda: .5
 	},
-	minTime: 8,
-	maxTime: 17
+	minTime: 9,
+	maxTime: 16
 });
 
 views.agendaWeek = function(element, options) {
