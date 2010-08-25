@@ -1,2 +1,0 @@
-page<<"$('#calendar').fullCalendar( 'refetchEvents' )"
-page.replace_html 'student_info', :partial => 'show'
