@@ -1,8 +1,7 @@
 /* Name: main.c
- * Project: 1-Key Keyboard
- * Author: Flip van den Berg - www.flipwork.nl
- * Creation Date: 2008-10-06
- * Based on AVR-USB drivers from Objective Developments - http://www.obdev.at/products/avrusb/index.html
+ * Author: Daniel Bercht
+ * February 17th 2011 
+ * Based on AVR-USB drivers from Objective Developments - http://www.obdev.at/products/avrusb/index.html and Flip's 1-Key0Keyboard file www.flipblog.nz
  */
 
 #include <avr/io.h>
@@ -18,7 +17,8 @@
 
 #define BUTTON_PORT PORTB       /* PORTx - register for button output */
 #define BUTTON_PIN PINB         /* PINx - register for button input */
-#define BUTTON_BIT PB3          /* bit for button input/output */
+#define BUTTON_BIT PB5          /* bit for button input/output */
+#define LED_BIT PB1          /* bit for led output pin */
 
 /* ------------------------------------------------------------------------- */
 
@@ -79,9 +79,9 @@ uchar key = 0; //if not changed by the if-statement below, then send an empty re
 
     if(reportCount == 0){
         if (buttonState == 1){ // if button is not pressed
-		key = 0x30; // key = ]
 		} else {
-		key = 0x2F;  // key = [
+                ledBlink();
+		key = 0x45;  // key = F12
     	}
     }
 
@@ -190,6 +190,21 @@ ATTiny25, ATTiny45, ATTiny85), it may be useful to search for the optimum in
 both regions.
 */
 
+void ledInit()
+{
+        DDRB = _BV (LED_BIT);
+}
+
+void ledBlink()
+{
+                /*Turn LED on*/
+                PORTC |= _BV(PC0);
+                delay_ms(100);
+
+                /*Turn LED off*/
+                PORTC &= ~_BV(PC0);
+}
+
 void    usbEventResetReady(void)
 {
     calibrateOscillator();
@@ -209,6 +224,8 @@ uchar   calibrationValue;
     if(calibrationValue != 0xff){
         OSCCAL = calibrationValue;
     }
+
+    ledInit(); //To initialize ledPin as output... - DB
     
 	//odDebugInit();
     usbInit();
