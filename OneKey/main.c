@@ -198,11 +198,11 @@ void ledInit()
 void ledBlink()
 {
                 /*Turn LED on*/
-                PORTC |= _BV(PC0);
+                PORTB |= _BV(LED_BIT);
                 delay_ms(100);
 
                 /*Turn LED off*/
-                PORTC &= ~_BV(PC0);
+                PORTB &= ~_BV(LED_BIT);
 }
 
 void    usbEventResetReady(void)
