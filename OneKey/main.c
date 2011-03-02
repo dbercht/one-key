@@ -199,7 +199,7 @@ void ledBlink()
 {
                 /*Turn LED on*/
                 PORTB |= _BV(LED_BIT);
-                delay_ms(100);
+                _delay_ms(100);
 
                 /*Turn LED off*/
                 PORTB &= ~_BV(LED_BIT);
